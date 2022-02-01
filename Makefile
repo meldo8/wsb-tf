@@ -16,4 +16,4 @@ check-lambda-code:
 
 .PHONY: invoke-lambda
 invoke-lambda:
-	@aws-vault exec PROJECT-ENVIRONMENT -- aws lambda invoke --region=us-east-1 --function-name=$(terraform output -raw function_name) --payload '{"number": "$(number)", "power": "$(power)"}' response.json
+	@aws-vault exec PROJECT-ENVIRONMENT -- aws lambda invoke --region=us-east-1 --function-name=$(terraform output -raw function_name) --cli-binary-format raw-in-base64-out --payload '{"number": $(number), "power": $(power)}' response.json
