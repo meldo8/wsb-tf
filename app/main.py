@@ -1,12 +1,10 @@
-import logging
 import json
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
 
 def handler(event, context):
-    number = event.get("number", None)
-    if number is None:
+    try:
+        number = event["queryStringParameters"]["number"]
+    except KeyError:
         return {
             "statusCode": 400,
             "headers": {
@@ -17,8 +15,9 @@ def handler(event, context):
             })
         }
 
-    power = event.get("power", None)
-    if power is None:
+    try:
+        power = event["queryStringParameters"]["power"]
+    except KeyError:
         return {
             "statusCode": 400,
             "headers": {
@@ -38,5 +37,3 @@ def handler(event, context):
             "result": number ** power
         })
     }
-
-
