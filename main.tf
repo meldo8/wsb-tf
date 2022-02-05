@@ -26,39 +26,39 @@ resource "random_pet" "lambda_bucket_name" {
   length = 4
 }
 
-resource "aws_s3_bucket" "lambda_bucket" {
+resource "aws_s3_bucket" "lambda_source_code" {
   bucket = random_pet.lambda_bucket_name.id
 
   acl           = "private"
   force_destroy = true
 }
 
-data "archive_file" "lambda_power" {
+data "archive_file" "lambda_source_code" {
   type = "zip"
 
   source_dir = "${path.module}/app"
   output_path = "${path.module}/app.zip"
 }
 
-resource "aws_s3_bucket_object" "lambda_power" {
-  bucket = aws_s3_bucket.lambda_bucket.id
+resource "aws_s3_bucket_object" "lambda_source_code" {
+  bucket = aws_s3_bucket.lambda_source_code.id
 
   key = "app.zip"
-  source = data.archive_file.lambda_power.output_path
+  source = data.archive_file.lambda_source_code.output_path
 
-  etag = filemd5(data.archive_file.lambda_power.output_path)
+  etag = filemd5(data.archive_file.lambda_source_code.output_path)
 }
 
 resource "aws_lambda_function" "app" {
   function_name = "ToPower"
 
-  s3_bucket = aws_s3_bucket.lambda_bucket.id
-  s3_key = aws_s3_bucket_object.lambda_power.key
+  s3_bucket = aws_s3_bucket.lambda_source_code.id
+  s3_key = aws_s3_bucket_object.lambda_source_code.key
 
   runtime = "python3.8"
   handler = "main.handler"
 
-  source_code_hash = data.archive_file.lambda_power.output_base64sha256
+  source_code_hash = data.archive_file.lambda_source_code.output_base64sha256
 
   role = aws_iam_role.lambda_exec.arn
 }

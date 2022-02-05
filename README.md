@@ -53,9 +53,8 @@ To destroy project use `make destroy`
 | Name                                                                                                                                               | Type |
 |----------------------------------------------------------------------------------------------------------------------------------------------------|------|
 | [random_pet.lambda_bucket_name](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet)                                | resource |
-| [aws_s3_bucket.lambda_bucket](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest)                                    | resource |
-| [aws_s3_bucket.lambda_bucket](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest)                                    | resource |
-| [aws_s3_bucket_object.lambda_power](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object)                  | resource |
+| [aws_s3_bucket.lambda_source_code](https://registry.terraform.io/modules/terraform-aws-modules/s3-bucket/aws/latest)                                    | resource |
+| [aws_s3_bucket_object.lambda_source_code](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_object)                  | resource |
 | [aws_lambda_function.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function)                             | resource |
 | [aws_cloudwatch_log_group.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group)                   | resource |
 | [aws_iam_role.lambda_exec](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role)                                   | resource |
@@ -66,4 +65,4 @@ To destroy project use `make destroy`
 | [aws_apigatewayv2_route.app](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/apigatewayv2_route)                      | resource |
 | [aws_cloudwatch_log_group.api_gw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group)               | resource |
 | [aws_lambda_permission.api_gw](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission)                     | resource |
-| [archive_file.lambda_power](#)                                                                                                                     | data source |
+| [archive_file.lambda_source_code](#)                                                                                                                     | data source |
