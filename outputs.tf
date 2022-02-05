@@ -6,10 +6,10 @@ output "lambda_bucket_name" {
 
 output "function_name" {
   description = "Lambda function name"
-  value = aws_lambda_function.app.function_name
+  value       = aws_lambda_function.app.function_name
 }
 
 output "base_url" {
   description = "Lambda invoke url"
-  value = aws_apigatewayv2_stage.lambda.invoke_url
+  value       = aws_apigatewayv2_stage.lambda.invoke_url
 }

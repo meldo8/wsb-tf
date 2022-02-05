@@ -36,14 +36,14 @@ resource "aws_s3_bucket" "lambda_bucket" {
 data "archive_file" "lambda_power" {
   type = "zip"
 
-  source_dir = "${path.module}/app"
+  source_dir  = "${path.module}/app"
   output_path = "${path.module}/app.zip"
 }
 
 resource "aws_s3_bucket_object" "lambda_power" {
   bucket = aws_s3_bucket.lambda_bucket.id
 
-  key = "app.zip"
+  key    = "app.zip"
   source = data.archive_file.lambda_power.output_path
 
   etag = filemd5(data.archive_file.lambda_power.output_path)
@@ -53,7 +53,7 @@ resource "aws_lambda_function" "app" {
   function_name = "ToPower"
 
   s3_bucket = aws_s3_bucket.lambda_bucket.id
-  s3_key = aws_s3_bucket_object.lambda_power.key
+  s3_key    = aws_s3_bucket_object.lambda_power.key
 
   runtime = "python3.8"
   handler = "main.handler"
@@ -125,8 +125,8 @@ resource "aws_apigatewayv2_stage" "lambda" {
 resource "aws_apigatewayv2_integration" "app" {
   api_id = aws_apigatewayv2_api.lambda.id
 
-  integration_uri = aws_lambda_function.app.invoke_arn
-  integration_type = "AWS_PROXY"
+  integration_uri    = aws_lambda_function.app.invoke_arn
+  integration_type   = "AWS_PROXY"
   integration_method = "POST"
 }
 
@@ -144,7 +144,7 @@ resource "aws_cloudwatch_log_group" "api_gw" {
 }
 
 resource "aws_lambda_permission" "api_gw" {
-   statement_id  = "AllowExecutionFromAPIGateway"
+  statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.app.function_name
   principal     = "apigateway.amazonaws.com"
